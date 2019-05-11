@@ -1,0 +1,127 @@
+class: csc424-192
+project: proj5
+student: ctd45
+date: 
+
+grade: 3/6
+
+
+passes basic test (#):	2/2
+basic encryption (%):	1/2
+full correctness (&):	0/2
+lateness:		 	(0)/(3)
+  
+(#)
+- passes basic test
+	passes full test of project 3
+	proj5/Makefile-test:test3a
+
+(%)
+- passes basic encryption
+    if passes basic test:
+    complete all files listed in test3a/test5a using
+    encryption; both the client and the server are user's.
+
+(&)
+- correct operation
+    if passes basic tests, test interoperation with 
+    reference server. 
+    (1) test5a with run-ref
+    (2) and test5b with run-server
+    for full pass
+
+lateness:
+	due April 26
+	no lateness for on or before April 29
+
+   
+commit:
+
+comments:
+r1873 | ctd45 | 2019-04-28 21:54:00 -0400 (Sun, 28 Apr 2019) | 1 line
+
+* passes basic test
+
+	ubuntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ make -f Makefile-test run-ref
+	generally run in own window
+	touch running-ref
+	./ttftp-ref -v 33031
+	Line 135: server loop entered
+	Line 136: listening on port 33031
+
+	buntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ make -f Makefile-test test3a
+	*** checking for reference server running
+	---> make -f  run-ref to start reference server
+	rm running-ref
+	./ttftp-enc -h localhost -f poem.txt 33031 > test.out
+	diff test.out poem.txt
+	./ttftp-enc -h localhost -f 545bytes.bin 33031 > test.out
+	diff test.out 545bytes.bin
+	./ttftp-enc -h localhost -f 1535bytes.bin 33031 > test.out
+	diff 1535bytes.bin test.out
+	./ttftp-enc -h localhost -f 1536bytes.bin 33031 > test.out
+	diff 1536bytes.bin test.out
+	./ttftp-enc -h localhost -f 1537bytes.bin 33031 > test.out
+	diff 1537bytes.bin test.out
+	check ttftp-ref has exited...
+	ps aux | grep ttftp
+	ubuntu    4425  0.0  0.0   4516   748 pts/0    S+   17:57   0:00 ./ttftp-ref -v 33031
+	ubuntu    4439  0.0  0.0      0     0 pts/0    Z+   17:58   0:00 [ttftp-ref] <defunct>
+	ubuntu    4443  0.0  0.0      0     0 pts/0    Z+   17:58   0:00 [ttftp-ref] <defunct>
+	ubuntu    4447  0.0  0.0      0     0 pts/0    Z+   17:58   0:00 [ttftp-ref] <defunct>
+	ubuntu    4451  0.0  0.0      0     0 pts/0    Z+   17:58   0:00 [ttftp-ref] <defunct>
+	ubuntu    4455  0.0  0.0      0     0 pts/0    Z+   17:58   0:00 [ttftp-ref] <defunct>
+	ubuntu    4458  0.0  0.0   4628   856 pts/1    S+   17:58   0:00 /bin/sh -c ps aux | grep ttftp
+	ubuntu    4460  0.0  0.0  14856   996 pts/1    S+   17:58   0:00 grep ttftp
+	ubuntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ 
+
+
+	17:58:08.214089 IP localhost.43577 > localhost.33031: UDP, length 17
+		0x0000:  4500 002d c924 4000 4011 7399 7f00 0001  E..-.$@.@.s.....
+		0x0010:  7f00 0001 aa39 8107 0019 fe2c 0001 706f  .....9.....,..po
+		0x0020:  656d 2e74 7874 006f 6374 6574 00         em.txt.octet.
+	17:58:08.214581 IP localhost.44665 > localhost.43577: UDP, length 404
+		0x0000:  4500 01b0 c925 4000 4011 7215 7f00 0001  E....%@.@.r.....
+		0x0010:  7f00 0001 ae79 aa39 019c ffaf 0003 0001  .....y.9........
+		0x0020:  4c65 206c 6f6e 6720 6475 2076 6965 7578  Le.long.du.vieux
+		0x0030:  2066 6175 626f 7572 672c 206f c3b9 2070  .faubourg,.o...p
+		0x0040:  656e 6465 6e74 2061 7578 206d 6173 7572  endent.aux.masur
+		0x0050:  6573 0a4c 6573 2070 6572 7369 656e 6e65  es.Les.persienne
+		0x0060:  732c 2061 6272 6920 6465 7320 7365 6372  s,.abri.des.secr
+		0x0070:  c3a8 7465 7320 6c75 7875 7265 732c 0a51  ..tes.luxures,.Q
+		0x0080:  7561 6e64 206c 6520 736f 6c65 696c 2063  uand.le.soleil.c
+		0x0090:  7275 656c 2066 7261 7070 6520 c3a0 2074  ruel.frappe....t
+		0x00a0:  7261 6974 7320 7265 646f 7562 6cc3 a973  raits.redoubl..s
+		0x00b0:  0a53 7572 206c 6120 7669 6c6c 6520 6574  .Sur.la.ville.et
+		0x00c0:  206c 6573 2063 6861 6d70 732c 2073 7572  .les.champs,.sur
+		0x00d0:  206c 6573 2074 6f69 7473 2065 7420 6c65  .les.toits.et.le
+		0x00e0:  7320 626c c3a9 732c 0a4a 6520 7661 6973  s.bl..s,.Je.vais
+		0x00f0:  206d 2765 7865 7263 6572 2073 6575 6c20  .m'exercer.seul.
+		0x0100:  c3a0 206d 6120 6661 6e74 6173 7175 6520  ...ma.fantasque.
+		0x0110:  6573 6372 696d 652c 0a46 6c61 6972 616e  escrime,.Flairan
+		0x0120:  7420 6461 6e73 2074 6f75 7320 6c65 7320  t.dans.tous.les.
+		0x0130:  636f 696e 7320 6c65 7320 6861 7361 7264  coins.les.hasard
+		0x0140:  7320 6465 206c 6120 7269 6d65 2c0a 5472  s.de.la.rime,.Tr
+		0x0150:  c3a9 6275 6368 616e 7420 7375 7220 6c65  ..buchant.sur.le
+		0x0160:  7320 6d6f 7473 2063 6f6d 6d65 2073 7572  s.mots.comme.sur
+		0x0170:  206c 6573 2070 6176 c3a9 730a 4865 7572  .les.pav..s.Heur
+		0x0180:  7461 6e74 2070 6172 666f 6973 2064 6573  tant.parfois.des
+		0x0190:  2076 6572 7320 6465 7075 6973 206c 6f6e  .vers.depuis.lon
+		0x01a0:  6774 656d 7073 2072 c3aa 76c3 a973 2e0a  gtemps.r..v..s..
+	17:58:08.215132 IP localhost.43577 > localhost.44665: UDP, length 4
+		0x0000:  4500 0020 c926 4000 4011 73a4 7f00 0001  E....&@.@.s.....
+		0x0010:  7f00 0001 aa39 ae79 000c fe1f 0004 0001  .....9.y........
+	17:58:08.217487 IP localhost.45464 > localhost.33031: UDP, length 21
+
+
+* testing encryption, cannot complete test3a/test5a files in encryption
+
+	ubuntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ make -f Makefile-test FILE=1535bytes.bin run-client
+	./ttftp-enc -R -h localhost -f 1535bytes.bin -u pikachu -s pa22Word0 33031 > test.out
+	ubuntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ wc test.out
+	   3   18 1182 test.out
+	ubuntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ wc 1535bytes.bin 
+	   4   25 1535 1535bytes.bin
+	ubuntu@ip-172-30-1-171:~/myrepo.svn/ctd45/proj5$ 
+
+
