@@ -1,4 +1,4 @@
-#TTFTP Project — Encryption Option
+# TTFTP Project — Encryption Option
 by: burt rosenberg
 at: university of miami
 
@@ -7,7 +7,7 @@ Adding Encryption to the Truly Trivial File Transfer
 
 Building on the Truly Trivial File Transfer Project, a reduced functionality of the RFC 1350 TFTP protocol, we add a complete communication security solution protecting the confidentiality, integrity and authenticity of the channel. We use key hash functions based on MD5 in OFB mode encryption, with a CBC MAC based on the Encrypt-then-MAC method. In addition, we use a standard padding. We also provide a protocol extension, slightly in the spirit of RFC 1782, that negotiates the use of encryption and provides the required parameters (i.e. username and authenticator).
 
-##Specific Objectives
+## Specific Objectives
 The project is an exercise in all issues in data encryption including,
 
 block encryption using OFB mode,
@@ -17,18 +17,18 @@ MAC'ing for integrity, and CBC MACs,
 message padding techniques,
 key management.
 
-##Man Page
+## Man Page
 
 
-###NAME
+### NAME
     ttftp-enc
     
-###SYNOPSIS
+### SYNOPSIS
     ttftp-enc [-vR -p PORT] [-s passwordfile] (-l | -L)
     ttftp-enc [-vR -p PORT] [-u username -s password] host filename
     
     
-###DESCRIPTION
+### DESCRIPTION
     Implements a client and a server for the tftp protocol. If called without -h and -f
     options, the programs implements the ttftp server listening on port_port_. 
     If called with both -h and -f options, the program implements the ttftp client, 
@@ -51,7 +51,7 @@ key management.
     passwordfile; or if the username is not found in the passwordfile. Note that 
     octet mode continues to be supported.
     
-###OPTIONS
+### OPTIONS
     client and server options:
       -R no randomness.
       -v verbose. Multiple increase verbosity
@@ -69,7 +69,7 @@ key management.
       -s password (ofbcbc mode only)
       -u username (ofbcbc mode only)
 
-###ERRORS
+### ERRORS
     The client program exists with status -1 if the ofbcbc transfer results in a
     incorrect MAC, otherwise the exit status is 0.
     
@@ -77,7 +77,7 @@ key management.
     SHOULD be supported, including the sending of protocol compliant TFTP error
     packets.
 
-###NOTES
+### NOTES
     Implement only read requests, and mode octet or ofbcbc.
 
     The maximum filename length is 256 characters, and cannot contain a pathname.
@@ -85,7 +85,7 @@ key management.
     The -R option suppresses randomness. The client authenticator is fixed
     as 0x01, 0x02, ..., 0x10.
 
-###BUGS
+### BUGS
     In accordance with RFC 1782, the maximum size of a request packet should be 512
     bytes, in which case, the filename length restriction can be removed, as redundant.
     In contrast to RFC 1782, the options are not all strings, and are not a knowledged
@@ -94,15 +94,15 @@ key management.
     Along with ttftp, the command line sucks. -p should be non-default port, -k the key,
     and filename and host arguements, not options.
 
-###HISTORY
+### HISTORY
     First introduced in Fall 2003 as MyTftp. Made Truly Trivial in Spring 2015.
     Encryption option introduced in Spring 2015. OFB/CBC with keyed MD5 with 
     user passwords introduced Spring of 2019.
 
-###LAST UPDATED 
+### LAST UPDATED 
     April 10, 2019
 
-##RREQ packet for ofbcbc mode
+## RREQ packet for ofbcbc mode
 
 To announce a request for encrypted file transfer the client sense a RREQ packet with mode "ofbcb" and two additional fields. The username is a sequence of alphanumeric characters and authenticator (auth) is a 16 byte sequence nonce.
 
@@ -120,18 +120,18 @@ Mode = "ofbcbc"
     | Opcode |  Filename  |  0  |  Mode  |  0  |  username  |  0  |   auth    |
     +--------+------------+-----+--------+-----+------------+-----+-----------+
 
-##Data blocks and padding for ofbcbc
+## Data blocks and padding for ofbcbc
 
 When in ofbcbc mode, the file length is padded to a multiple of 512 bytes, and and sent as 512 byte blocks as in the original protocol. If the file length is already a multiple of 512 bytes, an additional 512 bytes is added. The final block is a 16 byte block containing the MAC. Signaling the last data block by a block of less than 512 bytes is maintained by the protocol extension.
 
 The padding of the final datablock follows ISO/IEC 7816-4. The first padding byte is 0x80 and all following padding bytes are 0x00.
 
-###DATA BLOCKS
+### DATA BLOCKS
 
   [1,Data(512 bytes)] [2,Data(512 bytes)] ... [n,Data/Padding(512 bytes)] [n+1,MAC(16 bytes)]
 
 
-###PADDING
+### PADDING
 
   One padding byte:      byte_0   .........   byte_509 byte_510 0x80
 
@@ -149,7 +149,7 @@ HE is used for encryption to create sequence of 16 byte pseudorandom blocks that
 
 The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption are used in a CBC construction using HD in all but the last hash, where HF is used.
 
-###Keyed Hash functions
+### Keyed Hash functions
 
    HE(key,data) = MD5( data || key )
    HD(key,data) = MD5(  key || data )
@@ -157,7 +157,7 @@ The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption
    
    where ~key is the bit-wise complement of key, and || is concatenation
 
-###Encryption and Decryption
+### Encryption and Decryption
 
    R_i = HE(secret, R_{i-1})
    C_i = R_i (+) B_i  (server computation)
@@ -170,7 +170,7 @@ The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption
       B_i is a 16 byte data subblock i, for i = 1, 2, ... n,
       and C_i is the encrypted 16 byte data subblock i, sent to client.
 
-###MAC calculation
+### MAC calculation
 
    D_i = HD(secret,C_i (+) D_{i-1})
    MAC = HF(secret, D_n)
@@ -186,13 +186,13 @@ The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption
 There are 32 16-byte subblocks to the TFTP protocol's 512 byte blocks.
 The padding scheme rounds up the message length to a 512 byte multiple.
       
-##Key management
+## Key management
 
 The shared secret, called the password, is a printable character string. The client receives the password as a command line option. The server extracts the username from the RREQ and retrieves the password for the file named as a command line option.
 
 This password is MD5 hashed before use in the cryptographic functions, as shown in the above calculations.
 
-##Error messages
+## Error messages
 
 Errors possible through command line options and arguments *should* be handled. For instance the server should return an error packet for file not found and when encryption is requested but not enabled. Errors arising from protocol violations *may* be handled. For instance, an authentication field of length other than 16 bytes.
 
@@ -207,7 +207,7 @@ The list of errors recommended are,
                                ofbcbc is requested but not enabled on the server
                                RREQ is otherwise malformed
    7   user not found          password for an ofbcbc is unknown to the server
-##Implementation Notes
+## Implementation Notes
 
 Here are a few thoughts on how to go about implementing this project. One skill in writing software is how to arrange your work in small steps. What to work on and when, to build the project up gradually, testing all the time, refining the vision for the software as you become familiar with the details.
 
@@ -225,7 +225,7 @@ At this point, retest the non-encryption option, that it still works, and that t
 
 Now implement encryption. Implement encryption and watch the gibberish fly. Then implement decryption and watch the gibberish become plaintext again. You will now be able to again pass all tests from project 3. As the final step, implement the MAC.
 
-##Protocol Trace
+## Protocol Trace
 
 This is the transfer of a zero-byte file. The 512 block 1 is a block entirely of padding. Block 2 is the 16 byte MAC. The -R option is used to get a repeatable trace.
 
