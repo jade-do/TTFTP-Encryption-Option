@@ -159,7 +159,7 @@ The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption
 
 ### Encryption and Decryption
 
-   R_i = HE(secret, R_{i-1}). 
+   R_i = HE(secret, R_{i-1})   
    C_i = R_i (+) B_i  (server computation)    
    B_i = R_i (+) C_i  (client computation)   
    
@@ -172,8 +172,8 @@ The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption
 
 ### MAC calculation
 
-   D_i = HD(secret,C_i (+) D_{i-1})
-   MAC = HF(secret, D_n)
+   D_i = HD(secret,C_i (+) D_{i-1})  
+   MAC = HF(secret, D_n)  
    
    where
    
@@ -273,41 +273,41 @@ ubuntu@ip-172-30-1-171:~/myrepo.svn/burt/proj5$
 
 SCREEN 3
 
-ubuntu@ip-172-30-1-171:~/myrepo.svn/burt/proj5$ make tcpdump
-sudo tcpdump -i lo -lX port 33031 or portrange 10000-65535
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
-
-00:12:39.370039 IP localhost.42322 > localhost.33031: UDP, length 44
-	0x0000:  4500 0048 6235 4000 4011 da6d 7f00 0001  E..Hb5@.@..m....
-	0x0010:  7f00 0001 a552 8107 0034 fe47 0001 3062  .....R...4.G..0b
-	0x0020:  7974 6573 2e62 696e 006f 6662 6362 6300  ytes.bin.ofbcbc.
-	0x0030:  7069 6b61 6368 7500 0102 0304 0506 0708  pikachu.........
-	0x0040:  090a 0b0c 0d0e 0f10                      ........
-00:12:39.371627 IP localhost.56884 > localhost.42322: UDP, length 516
-	0x0000:  4500 0220 6236 4000 4011 d894 7f00 0001  E...b6@.@.......
-	0x0010:  7f00 0001 de34 a552 020c 0020 0003 0001  .....4.R........
-	0x0020:  1db9 aacc 6c20 84af 89ca 1947 e2f9 1794  ....l......G....
-	0x0030:  6c0f d669 ccc9 5005 15fc abe9 fc56 6768  l..i..P......Vgh
-	0x0040:  2cb1 c216 b226 8431 0c32 41ed fd64 f80b  ,....&.1.2A..d..
-	0x0050:  d68c fcf4 cac5 5ed3 e659 eb2d ac8d b3e9  ......^..Y.-....
-	0x0060:  9c59 15c2 8254 4378 b818 444f 5faf 40c0  .Y...TCx..DO_.@.
-	0x0070:  45c0 efcc eae9 ee3f c396 59f8 a858 2957  E......?..Y..X)W
-	0x0080:  94b3 abf9 fd4a 6391 2273 f45c 2b94 af7e  .....Jc."s.\+..~
-	0x0090:  4d76 c728 2b7b 027b 7ff2 afd1 ad77 4d55  Mv.(+{.{.....wMU
-	0x00a0:  c310 f9e6 85cc dd4f 0860 1be5 a4a1 897c  .......O.`.....|
-	0x00b0:  ed67 43b0 57dc ec76 ba00 603b 78ee c545  .gC.W..v..`;x..E
-	0x00c0:  a8ea cf4a d7f9 9616 22d8 9639 51b7 4f11  ...J...."..9Q.O.
-	0x00d0:  644e 8f35 ae0c 0b18 99c0 d3c5 9575 3e89  dN.5.........u>.
-	0x00e0:  aba1 388a 09cb e3c0 c50f bdf1 f6da 6e6b  ..8...........nk
-	0x00f0:  e788 2e09 db4f 3163 a5db 3437 1231 4ba7  .....O1c..47.1K.
-	0x0100:  5fec ea42 2f1b 1095 8181 f7fc 252b 0bf7  _..B/.......%+..
-	0x0110:  1e11 a626 69b9 3dcb 9a44 5d3b ee7b f222  ...&i.=..D];.{."
-	0x0120:  93ec 4687 43e9 13f0 d4e1 8d8f 48a9 cc2e  ..F.C.......H...
-	0x0130:  ba6d b1a8 ea13 62a2 8b59 0fe8 bda8 a36d  .m....b..Y.....m
-	0x0140:  c363 c1ba f289 009f b11a 1b13 278c 0082  .c..........'...
-	0x0150:  c539 bcc9 192f c726 be7c a270 14b2 ef82  .9.../.&.|.p....
-	0x0160:  5b7b fcdf f537 290d 1e61 4b8f 130e edfe  [{...7)..aK.....
+ubuntu@ip-172-30-1-171:~/myrepo.svn/burt/proj5$ make tcpdump  
+sudo tcpdump -i lo -lX port 33031 or portrange 10000-65535  
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode  
+listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes  
+    
+00:12:39.370039 IP localhost.42322 > localhost.33031: UDP, length 44  
+	0x0000:  4500 0048 6235 4000 4011 da6d 7f00 0001  E..Hb5@.@..m....  
+	0x0010:  7f00 0001 a552 8107 0034 fe47 0001 3062  .....R...4.G..0b  
+	0x0020:  7974 6573 2e62 696e 006f 6662 6362 6300  ytes.bin.ofbcbc.  
+	0x0030:  7069 6b61 6368 7500 0102 0304 0506 0708  pikachu.........  
+	0x0040:  090a 0b0c 0d0e 0f10                      ........  
+00:12:39.371627 IP localhost.56884 > localhost.42322: UDP, length 516  
+	0x0000:  4500 0220 6236 4000 4011 d894 7f00 0001  E...b6@.@.......  
+	0x0010:  7f00 0001 de34 a552 020c 0020 0003 0001  .....4.R........  
+	0x0020:  1db9 aacc 6c20 84af 89ca 1947 e2f9 1794  ....l......G....  
+	0x0030:  6c0f d669 ccc9 5005 15fc abe9 fc56 6768  l..i..P......Vgh  
+	0x0040:  2cb1 c216 b226 8431 0c32 41ed fd64 f80b  ,....&.1.2A..d..  
+	0x0050:  d68c fcf4 cac5 5ed3 e659 eb2d ac8d b3e9  ......^..Y.-....  
+	0x0060:  9c59 15c2 8254 4378 b818 444f 5faf 40c0  .Y...TCx..DO_.@.  
+	0x0070:  45c0 efcc eae9 ee3f c396 59f8 a858 2957  E......?..Y..X)W  
+	0x0080:  94b3 abf9 fd4a 6391 2273 f45c 2b94 af7e  .....Jc."s.\+..~  
+	0x0090:  4d76 c728 2b7b 027b 7ff2 afd1 ad77 4d55  Mv.(+{.{.....wMU  
+	0x00a0:  c310 f9e6 85cc dd4f 0860 1be5 a4a1 897c  .......O.`.....|  
+	0x00b0:  ed67 43b0 57dc ec76 ba00 603b 78ee c545  .gC.W..v..`;x..E  
+	0x00c0:  a8ea cf4a d7f9 9616 22d8 9639 51b7 4f11  ...J...."..9Q.O.  
+	0x00d0:  644e 8f35 ae0c 0b18 99c0 d3c5 9575 3e89  dN.5.........u>.  
+	0x00e0:  aba1 388a 09cb e3c0 c50f bdf1 f6da 6e6b  ..8...........nk  
+	0x00f0:  e788 2e09 db4f 3163 a5db 3437 1231 4ba7  .....O1c..47.1K.  
+	0x0100:  5fec ea42 2f1b 1095 8181 f7fc 252b 0bf7  _..B/.......%+..  
+	0x0110:  1e11 a626 69b9 3dcb 9a44 5d3b ee7b f222  ...&i.=..D];.{."  
+	0x0120:  93ec 4687 43e9 13f0 d4e1 8d8f 48a9 cc2e  ..F.C.......H...  
+	0x0130:  ba6d b1a8 ea13 62a2 8b59 0fe8 bda8 a36d  .m....b..Y.....m  
+	0x0140:  c363 c1ba f289 009f b11a 1b13 278c 0082  .c..........'...  
+	0x0150:  c539 bcc9 192f c726 be7c a270 14b2 ef82  .9.../.&.|.p....  
+	0x0160:  5b7b fcdf f537 290d 1e61 4b8f 130e edfe  [{...7)..aK.....  
 	0x0170:  0910 b2e3 883f 82db f48e e4db 907e 1740  .....?.......~.@
 	0x0180:  7e9a f056 cbde 8ed1 6a69 c388 4f18 7453  ~..V....ji..O.tS
 	0x0190:  5d2c 2311 2fc5 d694 7ce5 f756 fca3 7436  ],#./...|..V..t6
@@ -331,3 +331,4 @@ listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
 	0x0010:  7f00 0001 a552 de34 000c fe1f 0004 0002  .....R.4........
 
 
+  
