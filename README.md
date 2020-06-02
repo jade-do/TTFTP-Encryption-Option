@@ -151,17 +151,17 @@ The MAC is encrypt-then-MAC style, where the sequence of blocks after encryption
 
 ### Keyed Hash functions
 
-   HE(key,data) = MD5( data || key )
-   HD(key,data) = MD5(  key || data )
-   HF(key,data) = MD5( ~key || data )
+   HE(key,data) = MD5( data || key )  
+   HD(key,data) = MD5(  key || data )  
+   HF(key,data) = MD5( ~key || data )  
    
    where ~key is the bit-wise complement of key, and || is concatenation
 
 ### Encryption and Decryption
 
-   R_i = HE(secret, R_{i-1})
-   C_i = R_i (+) B_i  (server computation)
-   B_i = R_i (+) C_i  (client computation)
+   R_i = HE(secret, R_{i-1}). 
+   C_i = R_i (+) B_i  (server computation)    
+   B_i = R_i (+) C_i  (client computation)   
    
    where
    
